@@ -1,0 +1,6 @@
+framework module Pods_plantListAssignment {
+  umbrella header "Pods-plantListAssignment-umbrella.h"
+
+  export *
+  module * { export * }
+}

@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="gTV-IL-0wX" customClass="TipsCollectionViewCell" customModule="plantListAssignment" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="137" height="180"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="137" height="180"/>
+                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sPe-1p-fgD">
+                        <rect key="frame" x="0.0" y="0.0" width="137" height="180"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="abb-gb-4vB">
+                                <rect key="frame" x="10" y="10" width="30" height="30"/>
+                                <subviews>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="tmp_img" translatesAutoresizingMaskIntoConstraints="NO" id="4cu-xn-e20">
+                                        <rect key="frame" x="2.5" y="2.5" width="25" height="25"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="25" id="X5e-Be-VCP"/>
+                                            <constraint firstAttribute="width" constant="25" id="cd1-85-vn4"/>
+                                        </constraints>
+                                    </imageView>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="4cu-xn-e20" firstAttribute="centerY" secondItem="abb-gb-4vB" secondAttribute="centerY" id="Fmg-3P-bOJ"/>
+                                    <constraint firstAttribute="height" constant="30" id="NbS-xm-5gy"/>
+                                    <constraint firstAttribute="width" constant="30" id="Qoj-j6-HZ5"/>
+                                    <constraint firstItem="4cu-xn-e20" firstAttribute="centerX" secondItem="abb-gb-4vB" secondAttribute="centerX" id="rmP-MI-54B"/>
+                                </constraints>
+                            </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Temperature" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="w2c-xF-9yM">
+                                <rect key="frame" x="10" y="110" width="61.5" height="12"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                                <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="18-25*C" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1l4-C3-E82">
+                                <rect key="frame" x="10" y="132" width="76.5" height="24"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="1l4-C3-E82" firstAttribute="leading" secondItem="w2c-xF-9yM" secondAttribute="leading" id="Jfe-oB-Nlw"/>
+                            <constraint firstItem="1l4-C3-E82" firstAttribute="top" secondItem="w2c-xF-9yM" secondAttribute="bottom" constant="10" id="Urh-qJ-B90"/>
+                            <constraint firstItem="abb-gb-4vB" firstAttribute="leading" secondItem="sPe-1p-fgD" secondAttribute="leading" constant="10" id="WwG-da-lS6"/>
+                            <constraint firstItem="w2c-xF-9yM" firstAttribute="leading" secondItem="sPe-1p-fgD" secondAttribute="leading" constant="10" id="fOT-Cc-4Th"/>
+                            <constraint firstItem="abb-gb-4vB" firstAttribute="top" secondItem="sPe-1p-fgD" secondAttribute="top" constant="10" id="hKU-Z9-sjS"/>
+                            <constraint firstItem="w2c-xF-9yM" firstAttribute="top" secondItem="abb-gb-4vB" secondAttribute="bottom" constant="70" id="ozs-5C-KZ7"/>
+                        </constraints>
+                    </view>
+                </subviews>
+            </view>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="sPe-1p-fgD" secondAttribute="trailing" id="Kdr-Rr-stA"/>
+                <constraint firstItem="sPe-1p-fgD" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="Yah-NW-3xO"/>
+                <constraint firstAttribute="bottom" secondItem="sPe-1p-fgD" secondAttribute="bottom" id="eZY-pV-e5x"/>
+                <constraint firstItem="sPe-1p-fgD" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="eiv-se-iCj"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
+            <size key="customSize" width="137" height="180"/>
+            <connections>
+                <outlet property="ivTips" destination="4cu-xn-e20" id="cen-y2-DvX"/>
+                <outlet property="lblTipsData" destination="1l4-C3-E82" id="gD0-yH-6ip"/>
+                <outlet property="lblTipsName" destination="w2c-xF-9yM" id="Mpy-dg-f2a"/>
+                <outlet property="mainView" destination="sPe-1p-fgD" id="57E-g8-qN6"/>
+                <outlet property="tipsView" destination="abb-gb-4vB" id="Sfy-W0-UZw"/>
+            </connections>
+            <point key="canvasLocation" x="200.72463768115944" y="150.66964285714286"/>
+        </collectionViewCell>
+    </objects>
+    <resources>
+        <image name="tmp_img" width="50" height="50"/>
+    </resources>
+</document>
