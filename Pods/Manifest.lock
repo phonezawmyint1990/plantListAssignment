@@ -1,14 +1,18 @@
 PODS:
   - Alamofire (4.9.1)
-  - IQKeyboardManagerSwift (6.5.2)
-  - Realm (4.1.0):
-    - Realm/Headers (= 4.1.0)
-  - Realm/Headers (4.1.0)
-  - RealmSwift (4.1.0):
-    - Realm (= 4.1.0)
+  - IQKeyboardManagerSwift (6.5.4)
+  - LGSideMenuController (2.1.1)
+  - Realm (3.21.0):
+    - Realm/Headers (= 3.21.0)
+  - Realm/Headers (3.21.0)
+  - RealmSwift (3.21.0):
+    - Realm (= 3.21.0)
   - RxCocoa (5.0.1):
     - RxRelay (~> 5)
     - RxSwift (~> 5)
+  - RxRealm (1.0.0):
+    - RealmSwift (~> 3.14)
+    - RxSwift (~> 5.0)
   - RxRelay (5.0.1):
     - RxSwift (~> 5)
   - RxSwift (5.0.1)
@@ -19,8 +23,11 @@ PODS:
 DEPENDENCIES:
   - Alamofire
   - IQKeyboardManagerSwift
+  - LGSideMenuController
+  - Realm
   - RealmSwift
   - RxCocoa
+  - RxRealm
   - RxSwift
   - SDWebImage
 
@@ -28,23 +35,27 @@ SPEC REPOS:
   trunk:
     - Alamofire
     - IQKeyboardManagerSwift
+    - LGSideMenuController
     - Realm
     - RealmSwift
     - RxCocoa
+    - RxRealm
     - RxRelay
     - RxSwift
     - SDWebImage
 
 SPEC CHECKSUMS:
   Alamofire: 85e8a02c69d6020a0d734f6054870d7ecb75cf18
-  IQKeyboardManagerSwift: c75366f1f19590e8caeae45fcd5815c9289d6099
-  Realm: 5d1453468eca02c901c50b8a356f4a98a15b57aa
-  RealmSwift: 1d238caa5c64a590c669beef1a7e858a6cf55a1c
+  IQKeyboardManagerSwift: 2dde0fc70110e8eac7ccce2a46fdbec6a850b414
+  LGSideMenuController: ae40c80983ab8b8801c7cef0a6804d43aaa72d45
+  Realm: 38e9dcb19104b58407167d99f70d4995f7c16023
+  RealmSwift: 3183cc1ad48378fbcd634311b22c0e6c44021152
   RxCocoa: e741b9749968e8a143e2b787f1dfbff2b63d0a5c
+  RxRealm: 1e81dcfca1fb50c3e9b3e1f8102bc875c5156a2e
   RxRelay: 89d54507f4fd4d969e6ec1d4bd7f3673640b4640
   RxSwift: e2dc62b366a3adf6a0be44ba9f405efd4c94e0c4
   SDWebImage: 7137d57385fb632129838c1e6ab9528a22c666cc
 
-PODFILE CHECKSUM: 1a0a9dd6d1d8bd0b5cddc1d4dd7d529b550686ba
+PODFILE CHECKSUM: 7f4ee137690ab5b17186404adea6b7d1651c1e26
 
 COCOAPODS: 1.8.4

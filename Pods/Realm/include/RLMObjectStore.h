@@ -86,8 +86,10 @@ namespace realm {
 class RLMClassInfo;
 
 // Create accessors
-RLMObjectBase *RLMCreateObjectAccessor(RLMClassInfo& info, NSUInteger index) NS_RETURNS_RETAINED;
-RLMObjectBase *RLMCreateObjectAccessor(RLMClassInfo& info, realm::RowExpr row) NS_RETURNS_RETAINED;
+RLMObjectBase *RLMCreateObjectAccessor(RLMRealm *realm, RLMClassInfo& info,
+                                       NSUInteger index) NS_RETURNS_RETAINED;
+RLMObjectBase *RLMCreateObjectAccessor(RLMRealm *realm, RLMClassInfo& info,
+                                       realm::RowExpr row) NS_RETURNS_RETAINED;
 #endif
 
 NS_ASSUME_NONNULL_END

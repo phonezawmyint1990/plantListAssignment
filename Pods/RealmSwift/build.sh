@@ -884,7 +884,6 @@ case "$COMMAND" in
         fi
 
         sh build.sh verify-cocoapods-ios
-        sh build.sh verify-cocoapods-ios-dynamic
         sh build.sh verify-cocoapods-osx
         sh build.sh verify-cocoapods-watchos
 
@@ -900,14 +899,6 @@ case "$COMMAND" in
         sh build.sh test-watchos-swift-cocoapods
         ;;
 
-    verify-cocoapods-ios-dynamic)
-        PLATFORM=$(echo $COMMAND | cut -d - -f 3)
-        # https://github.com/CocoaPods/CocoaPods/issues/7708
-        export EXPANDED_CODE_SIGN_IDENTITY=''
-        cd examples/installation
-        sh build.sh test-ios-objc-cocoapods-dynamic
-        ;;
-
     verify-cocoapods-*)
         PLATFORM=$(echo $COMMAND | cut -d - -f 3)
         # https://github.com/CocoaPods/CocoaPods/issues/7708
@@ -915,6 +906,9 @@ case "$COMMAND" in
         cd examples/installation
         sh build.sh test-$PLATFORM-objc-cocoapods
         sh build.sh test-$PLATFORM-swift-cocoapods
+        if [[ $PLATFORM = "ios" ]]; then
+            sh build.sh test-ios-objc-cocoapods-dynamic
+        fi
         ;;
 
     "verify-osx-encryption")
@@ -1506,13 +1500,8 @@ x.y.z Release notes (yyyy-MM-dd)
 ### Compatibility
 * File format: Generates Realms with format v9 (Reads and upgrades all previous formats)
 * Realm Object Server: 3.21.0 or later.
-* APIs are backwards compatible with all previous releases in the 4.x.y series.
+* APIs are backwards compatible with all previous releases in the 3.x.y series.
 * Carthage release for Swift is built with Xcode 11.2.
-
-### Internal
-Upgraded realm-core from ? to ?
-Upgraded realm-sync from ? to ?
-
 EOS)
         changelog=$(cat CHANGELOG.md)
         echo "$empty_section" > CHANGELOG.md

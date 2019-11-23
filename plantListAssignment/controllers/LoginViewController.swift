@@ -23,8 +23,6 @@ class LoginViewController: UIViewController {
         btnLogin.roundCorners([.topRight,.bottomRight], radius: 30)
         let btnLoginTap = UITapGestureRecognizer(target: self, action: #selector(btnLoginTapped))
         btnLogin.addGestureRecognizer(btnLoginTap)
-        //viewModel.requestLoginData()
-        
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -35,13 +33,8 @@ class LoginViewController: UIViewController {
             self.present(vc, animated: true, completion: nil)
         }
     }
+    
     @objc func btnLoginTapped(){
-//        if (UserDefaults.standard.string(forKey: IS_LOGIN) != nil) {
-//            print("OK")
-//        }else{
-//            print("Not OK")
-//        }
-        
         viewModel.requestLoginData(email: txtEmailId.text ?? "john@gmail.com" , password: txtPassword.text ?? "123456")
         viewModel.userResponse.observeOn(MainScheduler.instance)
             .subscribe(onNext:{user in
@@ -52,7 +45,7 @@ class LoginViewController: UIViewController {
                     self.present(vc, animated: true, completion: nil)
                 }
             },onError:{err in
-                
+
             }).disposed(by: bag)
     }
 }

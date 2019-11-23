@@ -12,4 +12,10 @@ class GetAllPlantRespone: Codable{
     var message: String = ""
     var code: Int = 0
     var data: [PlantVO] = []
+    
+    enum CodingKeys: String, CodingKey {
+        case message = "message"
+        case code = "code"
+        case data = "data"
+    }
 }

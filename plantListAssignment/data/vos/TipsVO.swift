@@ -7,12 +7,28 @@
 //
 
 import Foundation
-class TipsVO: Codable {
-    var temperature: String = ""
-    var light: String = ""
-    var placement: String = ""
-    
-    enum CodingKeys: String, CodingKey{
-        case temperature,light,placement
+import RealmSwift
+
+//class TipsVO: Codable {
+//    var temperature: String = ""
+//    var light: String = ""
+//    var placement: String = ""
+//
+//    enum CodingKeys: String, CodingKey{
+//        case temperature,light,placement
+//    }
+//}
+
+class Tips: Object, Codable {
+    @objc dynamic var temperature: String = ""
+    @objc dynamic var light: String = ""
+    @objc dynamic var placement: String = ""
+
+    enum CodingKeys: String, CodingKey {
+        case temperature = "temperature"
+        case light = "light"
+        case placement = "placement"
     }
 }
+
+

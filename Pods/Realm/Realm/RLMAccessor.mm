@@ -143,7 +143,7 @@ void setValue(__unsafe_unretained RLMObjectBase *const obj, NSUInteger colIndex,
     if (list.get_type() == realm::PropertyType::Object) {
         info = &obj->_info->linkTargetType(prop.index);
     }
-    RLMAccessorContext ctx(*info);
+    RLMAccessorContext ctx(obj->_realm, *info);
     translateError([&] { list.assign(ctx, value, false); });
 }
 
@@ -564,12 +564,20 @@ id RLMDynamicGet(__unsafe_unretained RLMObjectBase *const obj, __unsafe_unretain
 }
 
 id RLMDynamicGetByName(__unsafe_unretained RLMObjectBase *const obj,
-                       __unsafe_unretained NSString *const propName) {
+                       __unsafe_unretained NSString *const propName, bool asList) {
     RLMProperty *prop = obj->_objectSchema[propName];
     if (!prop) {
         @throw RLMException(@"Invalid property name '%@' for class '%@'.",
                             propName, obj->_objectSchema.className);
     }
+    if (asList && prop.array && prop.swiftIvar) {
+        RLMListBase *list = object_getIvar(obj, prop.swiftIvar);
+        if (prop.type != RLMPropertyTypeLinkingObjects && !list._rlmArray) {
+            list._rlmArray = RLMDynamicGet(obj, prop);
+        }
+        return list;
+    }
+
     return RLMDynamicGet(obj, prop);
 }
 
@@ -580,8 +588,8 @@ RLMAccessorContext::RLMAccessorContext(RLMAccessorContext& parent, realm::Proper
 {
 }
 
-RLMAccessorContext::RLMAccessorContext(RLMClassInfo& info, bool promote)
-: _realm(info.realm), _info(info), _promote_existing(promote)
+RLMAccessorContext::RLMAccessorContext(RLMRealm *realm, RLMClassInfo& info, bool promote)
+: _realm(realm), _info(info), _promote_existing(promote)
 {
 }
 
@@ -619,6 +627,11 @@ id RLMAccessorContext::propertyValue(__unsafe_unretained id const obj, size_t pr
         if (prop.array) {
             return static_cast<RLMListBase *>(object_getIvar(obj, prop.swiftIvar))._rlmArray;
         }
+        else if (prop.swiftIvar == RLMDummySwiftIvar) {
+            // FIXME: An invalid property which we're pretending is nil until 4.0
+            // https://github.com/realm/realm-cocoa/issues/5784
+            return NSNull.null;
+        }
         else { // optional
             value = RLMGetOptional(static_cast<RLMOptionalBase *>(object_getIvar(obj, prop.swiftIvar)));
         }
@@ -634,18 +647,18 @@ id RLMAccessorContext::propertyValue(__unsafe_unretained id const obj, size_t pr
 id RLMAccessorContext::box(realm::List&& l) {
     REALM_ASSERT(_parentObject);
     REALM_ASSERT(currentProperty);
-    return [[RLMManagedArray alloc] initWithList:std::move(l)
+    return [[RLMManagedArray alloc] initWithList:std::move(l) realm:_realm
                                       parentInfo:_parentObject->_info
                                         property:currentProperty];
 }
 
 id RLMAccessorContext::box(realm::Object&& o) {
     REALM_ASSERT(currentProperty);
-    return RLMCreateObjectAccessor(_info.linkTargetType(currentProperty.index), o.row());
+    return RLMCreateObjectAccessor(_realm, _info.linkTargetType(currentProperty.index), o.row());
 }
 
 id RLMAccessorContext::box(realm::RowExpr r) {
-    return RLMCreateObjectAccessor(_info, r);
+    return RLMCreateObjectAccessor(_realm, _info, r);
 }
 
 id RLMAccessorContext::box(realm::Results&& r) {
@@ -800,9 +813,3 @@ RLMOptionalId RLMAccessorContext::default_value_for_property(realm::ObjectSchema
 bool RLMAccessorContext::is_same_list(realm::List const& list, __unsafe_unretained id const v) const noexcept {
     return [v respondsToSelector:@selector(isBackedByList:)] && [v isBackedByList:list];
 }
-
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wincomplete-implementation"
-@implementation RLMManagedPropertyAccessor
-@end
-#pragma clang diagnostic pop

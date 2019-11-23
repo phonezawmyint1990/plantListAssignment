@@ -21,10 +21,15 @@ class PlantTableViewCell: UITableViewCell {
     
     var mdata : PlantVO?{
         didSet{
-            ivPlantPhoto.sd_setImage(with: URL(string: mdata!.plant_photo))
-            lblPlantName.text = mdata?.plant_name
-            lblUploadedUserName.text = mdata?.uploaded_user.name
-            ivUploadedUserPhoto.sd_setImage(with: URL(string: mdata!.uploaded_user.user_photo))
+            ivPlantPhoto.sd_setImage(with: URL(string: mdata!.plantPhoto))
+            lblPlantName.text = mdata?.plantName
+            lblUploadedUserName.text = "By " + (mdata?.uploadedUser?.name)!
+            ivUploadedUserPhoto.sd_setImage(with: URL(string: mdata!.uploadedUser!.userPhoto))
+            if mdata!.favourite {
+                ivPlantFavourite.image = UIImage(named: "plant_favourite")
+            }else{
+                 ivPlantFavourite.image = UIImage(named: "plant_non_favourite")
+            }
         }
     }
     

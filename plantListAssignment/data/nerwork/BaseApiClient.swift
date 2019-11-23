@@ -13,7 +13,9 @@ import RxSwift
 
 open class BaseApiClient {
     fileprivate let BASE_URL =
-    "https://80032420-e94c-49d3-8c8b-570639a026cc.mock.pstmn.io/"
+//    "https://80032420-e94c-49d3-8c8b-570639a026cc.mock.pstmn.io/"
+    "https://0d02c4e8-8852-4756-b5b5-f2640de78960.mock.pstmn.io/"
+    
     func requestApiWithoutHeaders<T>(url:String,
                                      method:HTTPMethod,
                                      params: Parameters,
@@ -22,6 +24,7 @@ open class BaseApiClient {
         
         let headers: HTTPHeaders = [
             "Authorization" : ""
+           
         ]
         let decoder = JSONDecoder()
         return  Observable<T>.create{ (observer) -> Disposable in
@@ -30,6 +33,7 @@ open class BaseApiClient {
                 case .success :
                     if 200 ... 299 ~= response.response?.statusCode ?? 500 {
                         let data = response.data!
+                        print("Data",data)
                         let returndata  = try! decoder.decode(T.self, from: data)
                         observer.onNext(returndata)
                         observer.onCompleted()

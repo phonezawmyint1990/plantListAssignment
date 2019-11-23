@@ -6,10 +6,14 @@ target 'plantListAssignment' do
   use_frameworks!
 
   # Pods for plantListAssignment
+  pod 'LGSideMenuController'
+  pod 'Alamofire'
   pod 'SDWebImage'
   pod 'IQKeyboardManagerSwift'
-  pod 'Alamofire'
-	pod 'RxSwift'
+  pod 'RxSwift'
   pod 'RxCocoa'
   pod 'RealmSwift'
+  pod 'RxRealm'
+  pod 'Realm'
+  
 end

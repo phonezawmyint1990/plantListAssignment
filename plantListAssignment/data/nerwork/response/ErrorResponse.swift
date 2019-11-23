@@ -8,10 +8,12 @@
 
 import Foundation
 class ErrorResponse: Codable{
-    var code : String = ""
+   // var code : String = ""
     var message : String = ""
+    var name: String = ""
     
     enum CodingKeys: String, CodingKey{
-        case code,message
+        case message = "message"
+        case name = "name"
     }
 }

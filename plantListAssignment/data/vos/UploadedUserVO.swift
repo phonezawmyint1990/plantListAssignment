@@ -7,13 +7,29 @@
 //
 
 import Foundation
-class UploadedUserVO: Codable {
-    var name: String = ""
-    var user_photo: String =  ""
-    var uploaded_time: String = ""
-    var user_rank: String = ""
+import RealmSwift
+
+//class UploadedUserVO: Codable {
+//    var name: String = ""
+//    var user_photo: String =  ""
+//    var uploaded_time: String = ""
+//    var user_rank: String = ""
+//
+//    enum CodingKeys: String, CodingKey{
+//        case name,user_photo,uploaded_time,user_rank
+//    }
+//}
+
+class UploadedUser: Object, Codable {
+    @objc dynamic var name: String = ""
+    @objc dynamic var userPhoto: String = ""
+    @objc dynamic var uploadedTime = ""
+    @objc dynamic var userRank: String = ""
     
-    enum CodingKeys: String, CodingKey{
-        case name,user_photo,uploaded_time,user_rank
+    enum CodingKeys: String, CodingKey {
+        case name = "name"
+        case userPhoto = "user_photo"
+        case uploadedTime = "uploaded_time"
+        case userRank = "user_rank"
     }
 }

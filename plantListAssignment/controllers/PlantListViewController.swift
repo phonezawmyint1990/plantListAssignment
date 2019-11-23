@@ -9,15 +9,18 @@
 import UIKit
 import RxSwift
 import RxCocoa
-
+import RealmSwift
+import LGSideMenuController
 class PlantListViewController: UIViewController {
     @IBOutlet weak var ivMain: UIImageView!
     @IBOutlet weak var uiSearchBar: UISearchBar!
     @IBOutlet weak var plantListTableView: UITableView!
+    @IBOutlet weak var ivLeftMenu: UIImageView!
     
     let viewModel = PlantListViewModel()
     var mPlantList: [PlantVO] = []
     let bag = DisposeBag()
+    let realm = try! Realm()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,17 +30,36 @@ class PlantListViewController: UIViewController {
         plantListTableView.separatorColor = UIColor.clear
         viewModel.requestData()
         plantListFetchData()
-       
+        plantListTableView.dataSource = self
+        plantListTableView.delegate = self
+        
+        let leftMenu = UITapGestureRecognizer(target: self, action: #selector(leftMenuGesture))
+        ivLeftMenu.isUserInteractionEnabled = true
+        ivLeftMenu.addGestureRecognizer(leftMenu)
     }
     
+    @objc func leftMenuGesture(){
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let vc = storyboard.instantiateViewController(withIdentifier: String(describing: FavouriteViewController.self)) as! FavouriteViewController
+
+        self.present(vc, animated: true, completion: nil)
+        
+//        let vc = (UIApplication.shared.keyWindow?.rootViewController) as! LGSideMenuController
+//        vc.showLeftViewAnimated()
+    
+    }
+    
+    
     func plantListFetchData(){
-        viewModel.plantList.observeOn(MainScheduler.instance)
-            .bind(to: plantListTableView.rx.items){ tableView,index,item in
-            let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: PlantTableViewCell.self), for: IndexPath(row: index, section: 0)) as! PlantTableViewCell
-            cell.mdata = item
-            cell.delegate = self
-            return cell
-        }.disposed(by: bag)
+        viewModel.plantDataObs.observeOn(MainScheduler.instance)
+            .subscribe(onNext:{data in
+                self.bindData(data: data)
+            }).disposed(by: bag)
+    }
+    
+    func bindData(data:[PlantVO]) {
+        self.mPlantList = data
+        plantListTableView.reloadData()
     }
 }
 
@@ -48,4 +70,21 @@ extension PlantListViewController: PlantDetailsActionDelegate{
         vc.plant = plant
         self.present(vc, animated: true, completion: nil)
     }
+}
+
+extension PlantListViewController: UITableViewDataSource{
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return self.mPlantList.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: PlantTableViewCell.self), for: indexPath) as! PlantTableViewCell
+        cell.mdata = self.mPlantList[indexPath.row]
+        cell.delegate = self
+        return cell
+    }
+    
+}
+extension PlantListViewController: UITableViewDelegate{
+    
 }
